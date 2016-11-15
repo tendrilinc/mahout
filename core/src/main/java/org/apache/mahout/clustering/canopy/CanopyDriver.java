@@ -369,7 +369,7 @@ public class CanopyDriver extends AbstractJob {
       double clusterClassificationThreshold, boolean runSequential) throws IOException, InterruptedException,
       ClassNotFoundException {
     ClusterClassifier.writePolicy(new CanopyClusteringPolicy(), canopies);
-    ClusterClassificationDriver.run(points, output, new Path(output, CLUSTERED_POINTS_DIRECTORY),
+    ClusterClassificationDriver.run(conf, points, output, new Path(output, CLUSTERED_POINTS_DIRECTORY),
         clusterClassificationThreshold, true, runSequential);
   }
   
