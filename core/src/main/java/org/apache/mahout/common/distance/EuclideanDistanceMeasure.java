@@ -19,8 +19,6 @@ package org.apache.mahout.common.distance;
 
 import org.apache.mahout.math.IndexException;
 import org.apache.mahout.math.Vector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class implements a Euclidean distance metric by summing the square root of the squared differences
@@ -32,20 +30,14 @@ import org.slf4j.LoggerFactory;
  */
 public class EuclideanDistanceMeasure extends SquaredEuclideanDistanceMeasure {
 
-  private static final Logger log = LoggerFactory.getLogger(EuclideanDistanceMeasure.class);
-
   @Override
   public double distance(Vector v1, Vector v2) {
     double largeDistanceValue = 1000000;
-    int [] fieldNumbersThatMustMatch = {6};
+    int [] fieldNumbersThatMustMatch = {3};
 
     try {
-      log.info("calculating distance for: %s -- %s", v1, v2);
-      System.out.println(String.format("calculating distance for: %s -- %s", v1, v2));
       for (int fieldNumber : fieldNumbersThatMustMatch) {
         if (v1.get(fieldNumber) != v2.get(fieldNumber)) {
-          log.info("fieldnumber %s: %s", fieldNumber, largeDistanceValue);
-          System.out.println(String.format("fieldnumber %s: %s", fieldNumber, largeDistanceValue));
           return largeDistanceValue + Math.sqrt(super.distance(v1, v2));
         }
       }
@@ -57,6 +49,6 @@ public class EuclideanDistanceMeasure extends SquaredEuclideanDistanceMeasure {
 
   @Override
   public double distance(double centroidLengthSquare, Vector centroid, Vector v) {
-    return Math.sqrt(super.distance(centroidLengthSquare, centroid, v));
+      return distance(centroid, v);
   }
 }
